@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚠ HACKED BY TEAM AXIS ⚠</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+    /* ─────────────────────────────────────────
+       RESET & BASE
+    ───────────────────────────────────────── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --red:       #ff0000;
+      --red-dim:   #ff000066;
+      --red-faint: #ff000022;
+      --red-mid:   #cc1111;
+      --red-text:  #ff4444;
+      --bg:        #000000;
+      --bg2:       #060606;
+      --bg3:       #0a0000;
+      --border:    #ff000044;
+      --discord:   #5865F2;
+      --font:      'Share Tech Mono', 'Courier New', monospace;
+    }
+
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--bg);
+      color: #fff;
+      font-family: var(--font);
+    }
+
+    /* ─────────────────────────────────────────
+       SCANLINES OVERLAY
+    ───────────────────────────────────────── */
+    #scanlines {
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.12) 2px,
+        rgba(0, 0, 0, 0.12) 4px
+      );
+      pointer-events: none;
+      z-index: 9000;
+      animation: scanMove 8s linear infinite;
+    }
+
+    @keyframes scanMove {
+      from { background-position: 0 0; }
+      to   { background-position: 0 100px; }
+    }
+
+    /* ─────────────────────────────────────────
+       VIGNETTE
+    ───────────────────────────────────────── */
+    #vignette {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(
+        ellipse at center,
+        transparent 55%,
+        rgba(0, 0, 0, 0.65) 100%
+      );
+      pointer-events: none;
+      z-index: 8999;
+    }
+
+    /* ─────────────────────────────────────────
+       PARTICLE CANVAS (background)
+    ───────────────────────────────────────── */
+    #particles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ─────────────────────────────────────────
+       MAIN GRID LAYOUT
+    ───────────────────────────────────────── */
+    #app {
+      position: relative;
+      z-index: 10;
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      grid-template-rows: 44px 1fr 32px;
+      grid-template-columns: 1fr 320px;
+      grid-template-areas:
+        "topbar  topbar"
+        "video   sidebar"
+        "statusbar statusbar";
+    }
+
+    /* ─────────────────────────────────────────
+       TOP BAR
+    ───────────────────────────────────────── */
+    #topbar {
+      grid-area: topbar;
+      background: var(--bg3);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      gap: 12px;
+    }
+
+    #topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #topbar-logo {
+      width: 30px;
+      height: 30px;
+      object-fit: cover;
+      border: 1px solid var(--red);
+      filter: saturate(1.3) contrast(1.1);
+      animation: logoPulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes logoPulse {
+      0%, 100% { box-shadow: 0 0 4px var(--red); }
+      50%       { box-shadow: 0 0 14px var(--red), 0 0 30px var(--red-dim); }
+    }
+
+    #topbar-title {
+      font-size: 1rem;
+      color: var(--red);
+      letter-spacing: 5px;
+      text-shadow:
+        0 0 8px var(--red),
+        0 0 22px var(--red-dim);
+      animation: flicker 4s infinite;
+    }
+
+    #topbar-title .slash { color: #ff6666; }
+
+    #topbar-sub {
+      font-size: 0.6rem;
+      color: #ff4444;
+      letter-spacing: 4px;
+      margin-top: 1px;
+      text-shadow: 0 0 8px #ff000066;
+    }
+
+    /* ── BIG HACKED BANNER (video overlay) ── */
+    #hacked-banner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 6;
+      text-align: center;
+      pointer-events: none;
+      animation: bannerFlicker 5s infinite;
+    }
+
+    #hacked-banner .line1 {
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      font-weight: bold;
+      color: #ff0000;
+      letter-spacing: 10px;
+      text-shadow:
+        0 0 20px #ff0000,
+        0 0 50px #ff000088,
+        0 0 100px #ff000044;
+      display: block;
+    }
+
+    #hacked-banner .line2 {
+      font-size: clamp(1rem, 2.2vw, 1.8rem);
+      color: #ff4444;
+      letter-spacing: 8px;
+      text-shadow: 0 0 12px #ff000077;
+      display: block;
+      margin-top: 6px;
+    }
+
+    @keyframes bannerFlicker {
+      0%, 85%, 100% { opacity: 1; }
+      86% { opacity: 0.2; }
+      87% { opacity: 1; }
+      90% { opacity: 0.05; }
+      91% { opacity: 1; }
+    }
+
+    #topbar-center {
+      display: flex;
+      gap: 24px;
+    }
+
+    .tb-chip {
+      font-size: 0.58rem;
+      color: var(--red-text);
+      letter-spacing: 1px;
+      padding: 3px 8px;
+      border: 1px solid var(--border);
+      background: var(--red-faint);
+    }
+
+    .tb-chip .lbl { color: #ff000077; }
+    .tb-chip .val { color: var(--red); }
+
+    #topbar-right {
+      font-size: 0.58rem;
+      color: var(--red-text);
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    #clock {
+      color: var(--red);
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-shadow: 0 0 6px var(--red);
+    }
+
+    /* ─────────────────────────────────────────
+       VIDEO PANE
+    ───────────────────────────────────────── */
+    #video-pane {
+      grid-area: video;
+      position: relative;
+      background: #000;
+      border-right: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    #vid {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* corner brackets */
+    #video-pane::before,
+    #video-pane::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    #video-pane::before {
+      top: 6px; left: 6px;
+      border-top: 2px solid var(--red);
+      border-left: 2px solid var(--red);
+    }
+
+    #video-pane::after {
+      bottom: 6px; right: 6px;
+      border-bottom: 2px solid var(--red);
+      border-right: 2px solid var(--red);
+    }
+
+    .corner-tr, .corner-bl {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .corner-tr {
+      top: 6px; right: 6px;
+      border-top: 2px solid var(--red);
+      border-right: 2px solid var(--red);
+    }
+
+    .corner-bl {
+      bottom: 6px; left: 6px;
+      border-bottom: 2px solid var(--red);
+      border-left: 2px solid var(--red);
+    }
+
+    /* glitch flash */
+    #glitch-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4;
+      opacity: 0;
+      animation: glitchFlash 6s infinite;
+      background: linear-gradient(
+        135deg,
+        rgba(255,0,0,0.06) 0%,
+        transparent 50%,
+        rgba(255,0,0,0.04) 100%
+      );
+    }
+
+    @keyframes glitchFlash {
+      0%, 90%, 100% { opacity: 0; transform: none; }
+      91% { opacity: 1; transform: skewX(-1deg); }
+      92% { opacity: 0; }
+      93% { opacity: 0.8; transform: skewX(1.5deg) translateX(-3px); }
+      94% { opacity: 0; transform: none; }
+    }
+
+    /* ─────────────────────────────────────────
+       SIDEBAR
+    ───────────────────────────────────────── */
+    #sidebar {
+      grid-area: sidebar;
+      background: var(--bg2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sb-section {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .sb-label {
+      font-size: 0.55rem;
+      color: #ff000066;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* ── BREACH STATS ── */
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.65rem;
+      margin-bottom: 5px;
+      color: #ff3333;
+      letter-spacing: 1px;
+    }
+
+    .stat-row .k { color: #ff000077; }
+
+    .stat-row .v {
+      color: var(--red);
+      text-shadow: 0 0 5px var(--red-dim);
+    }
+
+    .stat-row .v.bad  { color: #ff0000; animation: pulse-red 1.5s infinite; }
+    .stat-row .v.good { color: #00ff44; text-shadow: 0 0 5px #00ff4466; }
+
+    @keyframes pulse-red {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.5; }
+    }
+
+    /* ── PROGRESS BARS ── */
+    .prog-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.58rem;
+      color: #ff444488;
+      margin-bottom: 3px;
+      letter-spacing: 1px;
+    }
+
+    .prog-bar {
+      height: 4px;
+      background: #1a0000;
+      margin-bottom: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .prog-fill {
+      height: 100%;
+      background: var(--red);
+      box-shadow: 0 0 8px var(--red);
+      transition: width 0.3s;
+    }
+
+    .prog-fill.green {
+      background: #00ff44;
+      box-shadow: 0 0 8px #00ff4466;
+    }
+
+    .prog-fill.amber {
+      background: #ffaa00;
+      box-shadow: 0 0 8px #ffaa0066;
+    }
+
+    /* ── TERMINAL LOG ── */
+    #terminal-wrap {
+      flex: 1;
+      overflow: hidden;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    #terminal-log {
+      flex: 1;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+
+    #terminal-log::-webkit-scrollbar { display: none; }
+
+    .log-line {
+      font-size: 0.6rem;
+      color: #cc2222;
+      line-height: 1.7;
+      letter-spacing: 0.5px;
+      animation: fadeInLine 0.3s ease;
+    }
+
+    .log-line.ok  { color: #00cc33; }
+    .log-line.warn { color: #ffaa00; }
+    .log-line.info { color: #5588ff; }
+
+    @keyframes fadeInLine {
+      from { opacity: 0; transform: translateX(-6px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    #terminal-cursor {
+      display: inline-block;
+      width: 7px;
+      height: 10px;
+      background: var(--red);
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: blink 0.8s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* ── MESSAGE ── */
+    #msg-section {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    #msg-big {
+      font-size: 0.82rem;
+      color: var(--red);
+      text-shadow: 0 0 10px var(--red-dim);
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+      animation: flicker 3s infinite;
+      line-height: 1.5;
+    }
+
+    #msg-small {
+      font-size: 0.62rem;
+      color: #aa2222;
+      line-height: 1.8;
+      letter-spacing: 1px;
+    }
+
+    /* ── DISCORD ── */
+    #discord-section {
+      padding: 10px 12px;
+      flex-shrink: 0;
+    }
+
+    #discord-btn {
+      display: block;
+      background: transparent;
+      color: var(--discord);
+      text-decoration: none;
+      padding: 9px 0;
+      border: 1px solid var(--discord);
+      font-family: var(--font);
+      font-size: 0.78rem;
+      letter-spacing: 3px;
+      text-align: center;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      animation: discordPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes discordPulse {
+      0%, 100% { box-shadow: 0 0 6px #5865F233; }
+      50%       { box-shadow: 0 0 18px #5865F266, 0 0 40px #5865F222; }
+    }
+
+    #discord-btn:hover {
+      background: var(--discord);
+      color: #fff;
+      box-shadow: 0 0 24px #5865F288;
+      animation: none;
+    }
+
+    #discord-sub {
+      font-size: 0.52rem;
+      color: #ff000044;
+      text-align: center;
+      margin-top: 5px;
+      letter-spacing: 2px;
+    }
+
+    /* ─────────────────────────────────────────
+       STATUS BAR
+    ───────────────────────────────────────── */
+    #statusbar {
+      grid-area: statusbar;
+      background: var(--bg3);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      font-size: 0.58rem;
+      color: var(--red-text);
+      letter-spacing: 1px;
+    }
+
+    .sb-item { display: flex; gap: 5px; }
+    .sb-item .lbl { color: #ff000055; }
+    .sb-item .val { color: var(--red); }
+    .sb-item .val.ok { color: #00ff44; }
+
+    #ticker-wrap {
+      flex: 1;
+      overflow: hidden;
+      margin: 0 20px;
+    }
+
+    #ticker {
+      white-space: nowrap;
+      animation: tickerScroll 22s linear infinite;
+      color: #ff000055;
+      font-size: 0.55rem;
+      letter-spacing: 1px;
+    }
+
+    @keyframes tickerScroll {
+      from { transform: translateX(100%); }
+      to   { transform: translateX(-100%); }
+    }
+
+    /* ─────────────────────────────────────────
+       KEYFRAME ANIMATIONS
+    ───────────────────────────────────────── */
+    @keyframes flicker {
+      0%, 88%, 100% { opacity: 1; }
+      89% { opacity: 0.35; }
+      90% { opacity: 1; }
+      93% { opacity: 0.1; }
+      94% { opacity: 1; }
+    }
+
+    /* ─────────────────────────────────────────
+       ALERT STRIPE (top of sidebar)
+    ───────────────────────────────────────── */
+    #alert-stripe {
+      background: repeating-linear-gradient(
+        45deg,
+        #1a0000 0px,
+        #1a0000 8px,
+        #2a0000 8px,
+        #2a0000 16px
+      );
+      border-bottom: 1px solid var(--border);
+      font-size: 0.58rem;
+      color: var(--red);
+      text-align: center;
+      padding: 4px 0;
+      letter-spacing: 4px;
+      animation: alertBlink 2s step-end infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes alertBlink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.5; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Overlay layers -->
+  <div id="scanlines"></div>
+  <div id="vignette"></div>
+  <canvas id="particles"></canvas>
+
+  <!-- Main layout -->
+  <div id="app">
+
+    <!-- ── TOP BAR ── -->
+    <div id="topbar">
+      <div id="topbar-left">
+        <img id="topbar-logo" src="image.png" alt="AXIS">
+        <div>
+          <div id="topbar-title"><span class="slash">//</span> TEAM AXIS</div>
+          <div id="topbar-sub">HACKED BY AXIS</div>
+        </div>
+      </div>
+      <div id="topbar-center">
+        <div class="tb-chip"><span class="lbl">TARGET </span><span class="val">BREACHED</span></div>
+        <div class="tb-chip"><span class="lbl">FIREWALL </span><span class="val">OFFLINE</span></div>
+        <div class="tb-chip"><span class="lbl">ENCRYPTION </span><span class="val">CRACKED</span></div>
+        <div class="tb-chip"><span class="lbl">OPERATOR </span><span class="val">AXIS</span></div>
+      </div>
+      <div id="topbar-right">
+        <span>SYSTEM TIME:</span>
+        <span id="clock">--:--:--</span>
+      </div>
+    </div>
+
+    <!-- ── VIDEO PANE ── -->
+    <div id="video-pane">
+      <div class="corner-tr"></div>
+      <div class="corner-bl"></div>
+      <div id="glitch-overlay"></div>
+      <div id="hacked-banner">
+        <span class="line1">HACKED BY AXIS</span>
+        <span class="line2">// TEAM AXIS — YOU HAVE BEEN OWNED //</span>
+      </div>
+      <video id="vid" src="video.mp4" controls autoplay muted></video>
+    </div>
+
+    <!-- ── SIDEBAR ── -->
+    <div id="sidebar">
+
+      <div id="alert-stripe">⚠ SECURITY COMPROMISED ⚠</div>
+
+      <!-- BREACH STATS -->
+      <div class="sb-section">
+        <div class="sb-label">// BREACH REPORT</div>
+        <div class="stat-row"><span class="k">ATTACK TYPE</span><span class="v bad">FULL BREACH</span></div>
+        <div class="stat-row"><span class="k">RESISTANCE</span><span class="v bad">NONE</span></div>
+        <div class="stat-row"><span class="k">DATA ACCESS</span><span class="v bad">COMPLETE</span></div>
+        <div class="stat-row"><span class="k">RECOVERY</span><span class="v bad">IMPOSSIBLE</span></div>
+        <div class="stat-row"><span class="k">ADMIN ACCESS</span><span class="v good">GRANTED</span></div>
+      </div>
+
+      <!-- PROGRESS BARS -->
+      <div class="sb-section">
+        <div class="sb-label">// SYSTEM STATUS</div>
+
+        <div class="prog-label"><span>FIREWALL</span><span>0%</span></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:2%"></div></div>
+
+        <div class="prog-label"><span>ENCRYPTION</span><span>3%</span></div>
+        <div class="prog-bar"><div class="prog-fill amber" style="width:3%"></div></div>
+
+        <div class="prog-label"><span>AXIS CONTROL</span><span>100%</span></div>
+        <div class="prog-bar"><div class="prog-fill green" style="width:100%"></div></div>
+
+        <div class="prog-label"><span>DATA EXFIL</span><span id="exfil-pct">0%</span></div>
+        <div class="prog-bar"><div class="prog-fill green" id="exfil-bar" style="width:0%"></div></div>
+      </div>
+
+      <!-- TERMINAL LOG -->
+      <div id="terminal-wrap">
+        <div class="sb-label">// LIVE TERMINAL</div>
+        <div id="terminal-log"></div>
+        <span id="terminal-cursor"></span>
+      </div>
+
+      <!-- MESSAGE -->
+      <div id="msg-section">
+        <div id="msg-big">WE ARE EVERYWHERE.<br>YOU CANNOT STOP US.</div>
+        <div id="msg-small">
+          YOUR DATA IS OURS.<br>
+          YOUR SECURITY IS A JOKE.<br>
+          — TEAM AXIS
+        </div>
+      </div>
+
+      <!-- DISCORD -->
+      <div id="discord-section">
+        <a id="discord-btn" href="https://discord.gg/FdbuDdKQye" target="_blank">[ JOIN AXIS ]</a>
+        <div id="discord-sub">IF YOU DARE.</div>
+      </div>
+
+    </div>
+
+    <!-- ── STATUS BAR ── -->
+    <div id="statusbar">
+      <div class="sb-item"><span class="lbl">STATUS</span><span class="val">OWNED</span></div>
+      <div class="sb-item"><span class="lbl">NET</span><span class="val ok">CONNECTED</span></div>
+      <div id="ticker-wrap"><div id="ticker">
+        AXIS OPERATION ACTIVE &nbsp;&nbsp;///&nbsp;&nbsp;
+        TARGET FULLY COMPROMISED &nbsp;&nbsp;///&nbsp;&nbsp;
+        ALL SYSTEMS UNDER AXIS CONTROL &nbsp;&nbsp;///&nbsp;&nbsp;
+        RESISTANCE IS FUTILE &nbsp;&nbsp;///&nbsp;&nbsp;
+        DATA EXTRACTION IN PROGRESS &nbsp;&nbsp;///&nbsp;&nbsp;
+        WELCOME TO YOUR NIGHTMARE &nbsp;&nbsp;///&nbsp;&nbsp;
+        TEAM AXIS — UNSTOPPABLE &nbsp;&nbsp;///&nbsp;&nbsp;
+      </div></div>
+      <div class="sb-item"><span class="lbl">PKT</span><span class="val ok" id="pkt-count">0</span></div>
+    </div>
+
+  </div><!-- end #app -->
+
+  <script>
+    /* ── AUTO-PLAY + UNMUTE ON INTERACTION ── */
+    var vid = document.getElementById('vid');
+    vid.muted = true;
+    vid.play().catch(function(){});
+
+    function unlock() {
+      vid.muted = false;
+      vid.volume = 1;
+      vid.play();
+      document.removeEventListener('mousemove', unlock);
+      document.removeEventListener('keydown', unlock);
+    }
+    document.addEventListener('mousemove', unlock);
+    document.addEventListener('keydown', unlock);
+
+    /* ── CLOCK ── */
+    function updateClock() {
+      var now = new Date();
+      var h = String(now.getHours()).padStart(2, '0');
+      var m = String(now.getMinutes()).padStart(2, '0');
+      var s = String(now.getSeconds()).padStart(2, '0');
+      document.getElementById('clock').textContent = h + ':' + m + ':' + s;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    /* ── PACKET COUNTER ── */
+    var pkt = 0;
+    setInterval(function() {
+      pkt += Math.floor(Math.random() * 140 + 30);
+      document.getElementById('pkt-count').textContent = pkt.toLocaleString();
+    }, 400);
+
+    /* ── EXFIL PROGRESS BAR ── */
+    var exfil = 0;
+    var exfilInterval = setInterval(function() {
+      exfil += Math.random() * 0.7 + 0.1;
+      if (exfil >= 100) {
+        exfil = 100;
+        clearInterval(exfilInterval);
+      }
+      var pct = Math.floor(exfil);
+      document.getElementById('exfil-pct').textContent = pct + '%';
+      document.getElementById('exfil-bar').style.width = pct + '%';
+    }, 120);
+
+    /* ── TERMINAL LOG ── */
+    var logLines = [
+      { t: 'warn', m: '[INIT] Establishing encrypted channel...' },
+      { t: 'ok',   m: '[OK]   Channel established. Latency: 3ms' },
+      { t: 'warn', m: '[SCAN] Running port enumeration...' },
+      { t: 'ok',   m: '[OK]   443 open  |  22 open  |  3306 open' },
+      { t: 'warn', m: '[BRUT] Brute-forcing admin credentials...' },
+      { t: 'ok',   m: '[OK]   Password cracked: ••••••••' },
+      { t: 'info', m: '[AUTH] Logged in as: root' },
+      { t: 'ok',   m: '[OK]   Shell spawned — uid=0(root)' },
+      { t: 'warn', m: '[PRIV] Escalating privileges...' },
+      { t: 'ok',   m: '[OK]   SYSTEM access confirmed' },
+      { t: 'warn', m: '[DUMP] Dumping database credentials...' },
+      { t: 'ok',   m: '[OK]   /etc/shadow extracted' },
+      { t: 'warn', m: '[KILL] Disabling intrusion detection...' },
+      { t: 'ok',   m: '[OK]   IDS/IPS terminated' },
+      { t: 'warn', m: '[WIPE] Clearing event logs...' },
+      { t: 'ok',   m: '[OK]   Logs purged. No trace left.' },
+      { t: 'info', m: '[AXIS] Full control achieved.' },
+      { t: 'ok',   m: '[OK]   Backdoor installed at port 31337' },
+      { t: 'warn', m: '[EXFL] Exfiltrating data...' },
+      { t: 'ok',   m: '[OK]   84 GB transferred to AXIS servers' },
+      { t: 'info', m: '[AXIS] Operation complete. GG.' },
+    ];
+
+    var logEl = document.getElementById('terminal-log');
+    var logIdx = 0;
+
+    function appendLog() {
+      if (logIdx >= logLines.length) {
+        logIdx = 0;
+        logEl.innerHTML = '';
+      }
+      var line = logLines[logIdx++];
+      var div = document.createElement('div');
+      div.className = 'log-line ' + line.t;
+      div.textContent = line.m;
+      logEl.appendChild(div);
+      logEl.scrollTop = logEl.scrollHeight;
+      var next = 400 + Math.random() * 900;
+      setTimeout(appendLog, next);
+    }
+
+    setTimeout(appendLog, 600);
+
+    /* ── PARTICLE CANVAS ── */
+    (function() {
+      var canvas = document.getElementById('particles');
+      var ctx = canvas.getContext('2d');
+
+      function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      var particles = [];
+      var COUNT = 60;
+
+      for (var i = 0; i < COUNT; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          r: Math.random() * 1.5 + 0.4,
+          a: Math.random() * 0.3 + 0.05
+        });
+      }
+
+      function drawParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (var i = 0; i < particles.length; i++) {
+          var p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0) p.x = canvas.width;
+          if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height;
+          if (p.y > canvas.height) p.y = 0;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255,0,0,' + p.a + ')';
+          ctx.fill();
+
+          /* connect nearby particles */
+          for (var j = i + 1; j < particles.length; j++) {
+            var q = particles[j];
+            var dx = p.x - q.x;
+            var dy = p.y - q.y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 90) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(q.x, q.y);
+              ctx.strokeStyle = 'rgba(255,0,0,' + (0.06 * (1 - dist / 90)) + ')';
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(drawParticles);
+      }
+
+      drawParticles();
+    })();
+  </script>
+</body>
+</html>
+
+    body {
+      background: #000;
+      color: #fff;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Share Tech Mono', 'Courier New', monospace;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      grid-template-rows: 100vh;
+    }
+
+    /* scanlines */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 2px,
+        rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px
+      );
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ── LEFT: video pane ── */
+    .left {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #ff000066;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-bottom: 1px solid #ff000066;
+      background: #0a0000;
+      flex-shrink: 0;
+    }
+
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-bar img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border: 1px solid #ff0000;
+      filter: saturate(1.4) contrast(1.1);
+    }
+
+    .top-bar h1 {
+      font-size: 1.3rem;
+      color: #ff0000;
+      letter-spacing: 4px;
+      text-shadow: 0 0 10px #ff0000, 0 0 28px #ff000055;
+      animation: flicker 4s infinite;
+    }
+
+    .top-bar h1 span { color: #fff; }
+
+    .top-bar-right {
+      font-size: 0.6rem;
+      color: #ff3333;
+      text-align: right;
+      line-height: 1.8;
+      letter-spacing: 1px;
+    }
+
+    .top-bar-right b { color: #ff0000; }
+
+    video {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #000;
+    }
+
+    .bottom-bar {
+      padding: 8px 14px;
+      border-top: 1px solid #ff000066;
+      background: #0a0000;
+      font-size: 0.65rem;
+      color: #ff4444;
+      letter-spacing: 1px;
+      flex-shrink: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .bottom-bar b { color: #ff0000; }
+
+    /* ── RIGHT: side panel ── */
+    .right {
+      background: #050505;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 14px;
+      gap: 14px;
+      overflow: hidden;
+    }
+
+    .panel-title {
+      font-size: 0.65rem;
+      color: #ff000099;
+      letter-spacing: 3px;
+      border-bottom: 1px solid #ff000033;
+      padding-bottom: 6px;
+    }
+
+    .info-block {
+      font-size: 0.7rem;
+      color: #ff3333;
+      line-height: 2;
+      letter-spacing: 1px;
+    }
+
+    .info-block .label { color: #ff000088; }
+    .info-block .val   { color: #ff4444; }
+    .info-block .red   { color: #ff0000; font-weight: bold; }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #ff000033;
+    }
+
+    .msg-block {
+      font-size: 0.72rem;
+      color: #cc2222;
+      line-height: 1.9;
+      letter-spacing: 1px;
+    }
+
+    .msg-block .big {
+      display: block;
+      font-size: 0.9rem;
+      color: #ff0000;
+      text-shadow: 0 0 8px #ff000077;
+      margin-bottom: 6px;
+      animation: flicker 3s infinite;
+    }
+
+    .spacer { flex: 1; }
+
+    .discord-btn {
+      display: block;
+      background: transparent;
+      color: #5865F2;
+      text-decoration: none;
+      padding: 10px 0;
+      border: 1px solid #5865F2;
+      font-family: inherit;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-align: center;
+      transition: background 0.2s, color 0.2s;
+      box-shadow: 0 0 10px #5865F222;
+    }
+
+    .discord-btn:hover {
+      background: #5865F2;
+      color: #fff;
+      box-shadow: 0 0 18px #5865F266;
+    }
+
+    .footer-note {
+      font-size: 0.55rem;
+      color: #ff000055;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    @keyframes flicker {
+      0%, 94%, 100% { opacity: 1; }
+      95% { opacity: 0.3; }
+      96% { opacity: 1; }
+      98% { opacity: 0.15; }
+      99% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LEFT -->
+  <div class="left">
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <img src="image.png" alt="AXIS">
+        <h1><span>//</span> TEAM AXIS</h1>
+      </div>
+      <div class="top-bar-right">
+        TARGET: <b>COMPROMISED</b><br>
+        FIREWALL: <b>DESTROYED</b><br>
+        OPERATOR: <b>AXIS</b>
+      </div>
+    </div>
+
+    <video id="vid" src="video.mp4" controls autoplay muted></video>
+
+    <div class="bottom-bar">
+      <span>SYSTEM ACCESS: <b>GRANTED</b></span>
+      <span>ENCRYPTION: <b>BROKEN</b></span>
+      <span>STATUS: <b>OWNED</b></span>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+    <div class="panel-title">// INTRUSION REPORT</div>
+
+    <div class="info-block">
+      <span class="label">ATTACK TYPE &nbsp;</span><span class="val">FULL SYSTEM BREACH</span><br>
+      <span class="label">DURATION &nbsp;&nbsp;&nbsp;</span><span class="val">ONGOING</span><br>
+      <span class="label">RESISTANCE &nbsp;</span><span class="val red">NONE</span><br>
+      <span class="label">RECOVERY &nbsp;&nbsp;&nbsp;</span><span class="val red">IMPOSSIBLE</span>
+    </div>
+
+    <hr class="divider">
+
+    <div class="msg-block">
+      <span class="big">WE ARE EVERYWHERE.</span>
+      YOU CANNOT STOP US.<br>
+      YOUR DATA IS OURS.<br>
+      YOUR SECURITY IS A JOKE.<br><br>
+      — TEAM AXIS
+    </div>
+
+    <div class="spacer"></div>
+
+    <a class="discord-btn" href="https://discord.gg/FdbuDdKQye" target="_blank">[ JOIN AXIS ]</a>
+    <div class="footer-note">IF YOU DARE.</div>
+  </div>
+
+  <script>
+    var vid = document.getElementById('vid');
+    vid.muted = true;
+    vid.play().catch(function() {});
+    function unlock() {
+      vid.muted = false;
+      vid.volume = 1;
+      vid.play();
+      document.removeEventListener('mousemove', unlock);
+      document.removeEventListener('keydown', unlock);
+    }
+    document.addEventListener('mousemove', unlock);
+    document.addEventListener('keydown', unlock);
+  </script>
+</body>
+</html>
+
+    body {
+      background: #000;
+      color: #fff;
+      height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      font-family: 'Share Tech Mono', 'Courier New', monospace;
+      padding: 12px 16px;
+      gap: 10px;
+      overflow: hidden;
+    }
+
+    /* scanline overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.18) 2px,
+        rgba(0,0,0,0.18) 4px
+      );
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ff0000aa;
+      padding-bottom: 10px;
+      gap: 12px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    header img {
+      width: 52px;
+      height: 52px;
+      object-fit: cover;
+      border: 2px solid #ff0000;
+      filter: grayscale(30%);
+    }
+
+    .title-block h1 {
+      font-size: 1.6rem;
+      color: #ff0000;
+      letter-spacing: 4px;
+      text-shadow: 0 0 12px #ff0000, 0 0 30px #ff000066;
+      animation: flicker 3s infinite;
+    }
+
+    .title-block p {
+      font-size: 0.7rem;
+      color: #ff4444;
+      letter-spacing: 2px;
+      margin-top: 2px;
+    }
+
+    .status {
+      text-align: right;
+      font-size: 0.65rem;
+      color: #ff4444;
+      line-height: 1.7;
+    }
+
+    .status span { color: #ff0000; }
+
+    video {
+      width: auto;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #ff000055;
+      box-shadow: 0 0 24px #ff000033;
+    }
+
+    footer {
+      border-top: 1px solid #ff0000aa;
+      padding-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .footer-msg {
+      font-size: 0.75rem;
+      color: #ff4444;
+      letter-spacing: 1px;
+    }
+
+    .footer-msg strong { color: #ff0000; }
+
+    .discord-btn {
+      background: transparent;
+      color: #5865F2;
+      text-decoration: none;
+      padding: 6px 18px;
+      border: 1px solid #5865F2;
+      font-family: inherit;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .discord-btn:hover {
+      background: #5865F2;
+      color: #fff;
+    }
+
+    @keyframes flicker {
+      0%, 95%, 100% { opacity: 1; }
+      96% { opacity: 0.4; }
+      97% { opacity: 1; }
+      98% { opacity: 0.2; }
+      99% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-area">
+      <img src="image.png" alt="AXIS">
+      <div class="title-block">
+        <h1>// TEAM AXIS</h1>
+        <p>THIS SITE HAS BEEN COMPROMISED</p>
+      </div>
+    </div>
+    <div class="status">
+      TARGET: <span>NEUTRALIZED</span><br>
+      SECURITY: <span>BYPASSED</span><br>
+      OPERATOR: <span>AXIS</span>
+    </div>
+  </header>
+
+  <video id="vid" src="video.mp4" controls autoplay muted></video>
+
+  <footer>
+    <div class="footer-msg">
+      <strong>WE ARE EVERYWHERE.</strong> YOU CANNOT STOP US.
+    </div>
+    <a class="discord-btn" href="https://discord.gg/FdbuDdKQye" target="_blank">[ JOIN AXIS ]</a>
+  </footer>
+
+  <script>
+    var vid = document.getElementById('vid');
+    vid.muted = true;
+    vid.play().catch(function() {});
+    function unlock() {
+      vid.muted = false;
+      vid.volume = 1;
+      vid.play();
+      document.removeEventListener('mousemove', unlock);
+      document.removeEventListener('keydown', unlock);
+    }
+    document.addEventListener('mousemove', unlock);
+    document.addEventListener('keydown', unlock);
+  </script>
+</body>
+</html>
